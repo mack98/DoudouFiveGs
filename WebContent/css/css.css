@@ -1,0 +1,19 @@
+		.kk{
+			width: 880px;
+			margin: 0 auto;
+		}
+		a{
+			font-size: 20px;
+			text-decoration: none;
+			color: black;
+		}
+		a:hover{
+			color:red;
+		}
+		#regMain{
+			font-size: 15px;
+			font-weight: bold;
+		}
+		.numr{
+			color: red;
+		}

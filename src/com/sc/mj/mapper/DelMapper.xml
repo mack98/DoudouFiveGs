@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce:理解成实现类的全路径(包名+类名) -->
+<mapper namespace="com.sc.mj.mapper.MobileMapper" >
+<!-- id:方法名
+    parameterType:定义参数类型
+    resultType:返回值类型.
+
+    如果方法返回值是list,在resultType中写List的泛型,因为mybatis
+    对jdbc封装,一行一行读取数据
+-->
+
+
+<!-- 删除mobile -->
+<delete id="delm" parameterType="String">
+	delete from mobile where cardNumber=#{crad}
+</delete>
+<!-- 删除record -->
+<delete id="delr" parameterType="String">
+	delete from record where card=#{crad}
+</delete>
+
+</mapper>

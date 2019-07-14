@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namesapce:理解成实现类的全路径(包名+类名) -->
+<mapper namespace="a.b" >
+<!-- id:方法名
+    parameterType:定义参数类型
+    resultType:返回值类型.
+
+    如果方法返回值是list,在resultType中写List的泛型,因为mybatis
+    对jdbc封装,一行一行读取数据
+-->
+
+<insert id="insM" parameterType="MobileCard">
+	insert into mobile(cardNumber,userName,passWord,PackageId,consumAmount,money,realTalkTime,realSMSCount,realFlow)
+	values(#{cardNumber},#{userName},#{passWord},#{PackageId},#{consumAmount},#{money},#{realTalkTime},#{realSMSCount},#{realFlow});
+</insert>
+<resultMap type="MobileCard" id="mymap">
+<!-- 主键 使用id标签-->
+	<id column="cardNumber" property="cardNumber" />
+<!-- 其他列用result标签 配置映射关系 -->
+	<result column="userName" property="userName"/>
+	<result property="passWord" column="passWord"/>
+	<result property="PackageId" column="PackageId"/>
+	<result property="consumAmount" column="consumAmount"/>
+	<result property="money" column="money"/>
+	<result property="realTalkTime" column="realTalkTime"/>
+	<result property="realSMSCount" column="realSMSCount"/>
+	<result property="realFlow" column="realFlow"/>
+	<!-- 如果关联一个对象 用association  集合对象用collection -->
+	<association property="serPackage" javaType="ServicePackages">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="talkTime" column="talkTime"/>
+		<result property="smsCount" column="smsCount"/>
+		<result property="flow" column="flow"/>
+		<result property="price" column="price"/>
+	</association>
+</resultMap>
+<select id="sell" resultMap="mymap">
+	select * from mobile m left join package p on m.PackageId=p.id
+</select>
+<!-- 新增账单 -->
+<insert id="addR" parameterType="Record">
+	insert into record
+	values(default,#{card},#{cost},#{talktime},#{sms},#{flow},#{mess},#{date})
+</insert>
+<!-- 更新账单 -->
+<update id="upm" parameterType="MobileCard">
+	update mobile set consumAmount=#{consumAmount},money=#{money},
+	realTalkTime=#{realTalkTime},realSMSCount=#{realSMSCount},
+	realFlow=#{realFlow}
+	where cardNumber=#{cardNumber}
+</update>
+<!-- 查询账单 -->
+<select id="selR" resultType="Record">
+	select * from record where card=#{cardNumber}
+</select>
+<!-- 更新套餐 -->
+<update id="upt" parameterType="MobileCard">
+	update mobile set PackageId=#{PackageId}
+	where cardNumber=#{cardNumber}
+</update>
+
+  
+
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration><!--配置-->
+	<!-- 别名 -->
+	<typeAliases>
+		<!--   <typeAlias type="com.sc.mj.pojo.MobileCard" alias="mobile"/> -->
+		 <package name="com.sc.mj.pojo"/>
+	</typeAliases>
+	<!-- default引用environment的id,当前所使用的环境 -->
+	<environments default="default">
+		<!-- 声明可以使用的环境 -->
+		<environment id="default"><!--环境-->
+			<!-- 使用原生JDBC事务 -->
+			<transactionManager type="JDBC"></transactionManager><!--事务管理器-->
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver"/>
+				<property name="url" value="jdbc:mysql://localhost:3306/doudou?characterEncoding=utf8"/>
+				<property name="username" value="root"/>
+				<property name="password" value="password"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/sc/mj/mapper/MobileMapper.xml"/>
+		<mapper resource="com/sc/mj/mapper/DelMapper.xml"/>
+	</mappers>
+</configuration>
